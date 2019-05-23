@@ -1,2 +1,5 @@
 scraper/cache/*
 hm_data.json
+
+site/node_modules
+site/.nuxt
