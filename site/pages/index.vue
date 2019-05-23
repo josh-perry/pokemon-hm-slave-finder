@@ -1,68 +1,75 @@
 <template>
   <section class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        hm-slave-finder
-      </h1>
-      <h2 class="subtitle">
-        A static site for finding perfect HM slaves in Pokemon!
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >GitHub</a>
-      </div>
-    </div>
+    <select v-model="generationSelection" @change="generationChanged($event)">
+      <option v-for="g in generations" v-bind:value="g.value">
+        {{g.text}}
+      </option>
+    </select>
+
+    <select v-model="hmSelection" @change="generationChanged($event)">
+      <option v-for="hm in hms" v-bind:value="hm">
+        {{hm}}
+      </option>
+    </select>
+
+    <ul>
+      <li v-for="p in pokemon">
+        <pokemon :name="p.name"/>
+      </li>
+    </ul>
   </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import Pokemon from '~/components/Pokemon.vue'
+import json from '~/hm_data.json'
+
+var pokes = []
+
+var generations = [
+  {text: "Gen 1 (RBY)", value: "gen1"},
+  {text: "Gen 2 (GSC)", value: "gen2"}
+]
+
+var hms = [
+  "cut",
+  "flash",
+  "surf",
+  "fly"
+]
 
 export default {
   components: {
-    Logo
+    Pokemon
+  },
+
+  data() {
+    return {
+      generationSelection: "gen1",
+      pokemon: pokes,
+      generations: generations,
+      hms: hms,
+      hmSelection: "flash"
+    }
+  },
+
+  methods: {
+    clearPokemon: function(event) {
+      pokes.splice(0, pokes.length);
+    },
+
+    generationChanged: function(event) {
+      this.clearPokemon();
+
+      json[this.generationSelection][this.hmSelection].forEach((e) => {
+        pokes.push({
+          name: e
+        });
+      });
+    }
   }
-}
+};
 </script>
 
 <style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
 </style>
