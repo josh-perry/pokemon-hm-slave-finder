@@ -6,11 +6,14 @@
       </option>
     </select>
 
-    <select v-model="hmSelection" @change="generationChanged($event)">
-      <option v-for="hm in hms" v-bind:value="hm">
-        {{hm}}
-      </option>
-    </select>
+    <div>
+      <ul>
+        <li v-for="hm in hms">
+          <input type="checkbox" :id="hm.name" :value="hm.name" v-model="hmSelection" @change="hmChanged">
+          <label :for="hm">{{hm.name}}</label>
+        </li>
+      </ul>
+    </div>
 
     <ul>
       <li v-for="p in pokemon">
@@ -21,13 +24,11 @@
 </template>
 
 <script>
+import intersection from 'lodash'
+
 import Pokemon from '~/components/Pokemon.vue'
 import json from '~/hm_data.json'
-
-var generations = [
-  {text: "Gen 1 (RBY)", value: "gen1"},
-  {text: "Gen 2 (GSC)", value: "gen2"}
-]
+import allPokemon from '~/all_pokemon.json'
 
 export default {
   components: {
@@ -36,6 +37,7 @@ export default {
 
   data() {
     return {
+      checkedNames: [],
       pokemon: [],
       generations: [
         {text: "Gen 1 (RBY)", value: "gen1"},
@@ -43,7 +45,7 @@ export default {
       ],
       hms: [],
       generationSelection: null,
-      hmSelection: null
+      hmSelection: []
     }
   },
 
@@ -67,13 +69,10 @@ export default {
       var k = Object.keys(json[this.generationSelection])
 
       k.forEach((e) => {
-        this.hms.push(e);
+        this.hms.push({name: e});
       });
 
-      // If the selected field move isn't in the new generation then reset it
-      if (!this.hms.includes(this.hmSelection)) {
-        this.hmSelection = null;
-      }
+      this.hmSelection = [];
     },
 
     updatePokemonList: function(event) {
@@ -83,7 +82,18 @@ export default {
         return;
       }
 
-      json[this.generationSelection][this.hmSelection].forEach((e) => {
+      var hmPokemon = [];
+
+      this.hmSelection.forEach((hm) => {
+        if (hmPokemon.length == 0) {
+          hmPokemon = json[this.generationSelection][hm];
+        }
+        else {
+          hmPokemon = _.intersection(hmPokemon, json[this.generationSelection][hm]);
+        }
+      });
+
+      hmPokemon.forEach((e) => {
         this.pokemon.push({
           name: e
         });
