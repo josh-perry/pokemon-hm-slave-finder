@@ -14,16 +14,16 @@ attackdex_paths = [
 
 field_moves = [
     # Gen 1
-    ["cut", "surf", "fly", "strength", "flash", "teleport", "dig", "soft-boiled"],
+    ["cut", "surf", "fly", "strength", "flash"],
     
     # Gen 2
-    ["cut", "fly", "surf", "strength", "flash", "whirlpool", "waterfall", "rock smash", "headbutt", "sweet scent", "milk drink", "teleport", "dig", "softboiled"],
+    ["cut", "fly", "surf", "strength", "flash", "whirlpool", "waterfall"],
 
     # Gen 3
-    ["cut", "fly", "surf", "strength", "flash", "waterfall", "rock smash", "sweet scent", "milk drink", "teleport", "dig", "softboiled", "dive", "secret power"],
+    ["cut", "fly", "surf", "strength", "flash", "rock smash", "waterfall", "dive"],
     
     # Gen 4
-    ["cut", "fly", "surf", "strength", "flash", "waterfall", "rock smash", "sweet scent", "milk drink", "teleport", "dig", "softboiled", "dive", "secret power", "whirlpool", "headbutt", "defog", "rock climb", "chatter"]
+    ["cut", "fly", "surf", "strength", "defog", "rock smash", "waterfall", "rock climb", "whirlpool"],
 ]
 
 def scrape_attackdex(gen):
