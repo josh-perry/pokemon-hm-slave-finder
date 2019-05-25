@@ -1,5 +1,6 @@
 scraper/cache/*
 
+site/dist
 site/node_modules
 site/.nuxt
 site/hm_data.json
