@@ -1,5 +1,11 @@
 import pkg from './package'
 
+const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+  router: {
+    base: '/pokemon-hm-slave-finder'
+  }
+} : {}
+
 export default {
   mode: 'universal',
 
@@ -50,5 +56,7 @@ export default {
     */
     extend(config, ctx) {
     }
-  }
+  },
+
+  ...routerBase
 }
