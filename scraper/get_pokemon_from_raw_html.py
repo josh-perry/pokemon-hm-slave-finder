@@ -17,9 +17,16 @@ def get_pokemon_from_file(file):
             try:
                 name = row.select("td")[3].text
                 name = name.replace("Yellow Only", "")
+                
+                id = row.select("td")[0].text.replace("#", "")
 
-                pokemon.append(name)
-                allPokemon.append(name)
+                p = {
+                    "name": name,
+                    "id": id
+                }
+
+                pokemon.append(p)
+                allPokemon.append(p)
             except:
                 pass
 
@@ -53,8 +60,6 @@ if __name__ == '__main__':
         genPokemon = get_hm_pokemon_for_gen(gen)
 
         data["gen{}".format(gen)] = genPokemon
-
-    allPokemon = list(set(allPokemon))
 
     with open("cache/all_pokemon.json", "w+") as file:
         file.write(json.dumps(allPokemon, sort_keys=True, indent=4))

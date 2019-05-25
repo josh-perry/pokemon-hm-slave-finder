@@ -1,11 +1,12 @@
 <template>
   <div>
-    {{name}}
+    <img :src="`img/${generation}/${pokemon.id}.png`">
+    {{pokemon.name}}
   </div>
 </template>
 
 <script>
 export default {
-  props: ["name"]
+  props: ["pokemon", "generation"]
 }
 </script>

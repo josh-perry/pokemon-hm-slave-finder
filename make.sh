@@ -7,3 +7,4 @@ cd -
 
 cp scraper/cache/hm_data.json site/
 cp scraper/cache/all_pokemon.json site/
+cp -r scraper/cache/img site/static

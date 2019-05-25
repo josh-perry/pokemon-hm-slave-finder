@@ -17,18 +17,17 @@
 
     <ul>
       <li v-for="p in pokemon">
-        <pokemon :name="p.name"/>
+        <pokemon :pokemon="p" :generation="generationSelection"/>
       </li>
     </ul>
   </section>
 </template>
 
 <script>
-import intersection from 'lodash'
+import intersectionBy from 'lodash'
 
 import Pokemon from '~/components/Pokemon.vue'
 import json from '~/hm_data.json'
-import allPokemon from '~/all_pokemon.json'
 
 export default {
   components: {
@@ -91,14 +90,12 @@ export default {
           hmPokemon = json[this.generationSelection][hm];
         }
         else {
-          hmPokemon = _.intersection(hmPokemon, json[this.generationSelection][hm]);
+          hmPokemon = _.intersectionBy(hmPokemon, json[this.generationSelection][hm], 'id');
         }
       });
 
       hmPokemon.forEach((e) => {
-        this.pokemon.push({
-          name: e
-        });
+        this.pokemon.push(e);
       });
     }
   }
