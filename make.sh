@@ -5,5 +5,5 @@ python3 get_pokemon_from_raw_html.py
 
 cd -
 
-cp scraper/cache/hm_data.json site/
+cp scraper/cache/hm_data.json site/static
 cp -r scraper/cache/img site/static

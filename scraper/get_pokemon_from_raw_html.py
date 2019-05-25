@@ -4,18 +4,27 @@ from bs4 import BeautifulSoup
 
 allPokemon = []
 
-def get_pokemon_from_file(file):
+def get_pokemon_from_file(file, gen):
     pokemon = []
 
     soup = BeautifulSoup(file, "lxml")
 
+    nameTd = 3
+    tableSkip = 1
+
+    # For some reason Serebii changed the format of their attackdex pages but
+    # ONLY for gen 3
+    if gen == 3:
+        tableSkip = 0
+        nameTd = 2
+
     dextables = soup.select(".dextable")
 
     # Skip the first one because it's just the move description
-    for dextable in dextables[1:]:
+    for dextable in dextables[tableSkip:]:
         for row in dextable.select("tr")[2:]:
             try:
-                name = row.select("td")[3].text
+                name = row.select("td")[nameTd].text
                 name = name.replace("Yellow Only", "")
                 
                 id = row.select("td")[0].text.replace("#", "")
@@ -41,7 +50,7 @@ def get_hm_pokemon_for_gen(gen):
     output_dir = "cache/hm_pokemon/gen{}".format(gen)
     input_dir = "cache/raw_html/gen{}".format(gen)
 
-    gen = {}
+    generation = {}
 
     for f in os.listdir(input_dir):
         move = os.path.splitext(f)[0]
@@ -49,9 +58,9 @@ def get_hm_pokemon_for_gen(gen):
         pokemon = []
 
         with open("{}/{}".format(input_dir, f)) as file:
-            gen[move] = get_pokemon_from_file(file)
+            generation[move] = get_pokemon_from_file(file, gen)
 
-    return gen
+    return generation
 
 if __name__ == '__main__':
     data = {}
