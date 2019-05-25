@@ -41,7 +41,9 @@ export default {
       pokemon: [],
       generations: [
         {text: "Gen 1 (RBY)", value: "gen1"},
-        {text: "Gen 2 (GSC)", value: "gen2"}
+        {text: "Gen 2 (GSC)", value: "gen2"},
+        {text: "Gen 3", value: "gen3"},
+        {text: "Gen 4", value: "gen4"}
       ],
       hms: [],
       generationSelection: null,

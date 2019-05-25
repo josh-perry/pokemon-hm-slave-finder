@@ -7,7 +7,9 @@ raw_html_path = "cache/raw_html"
 
 attackdex_paths = [
     "attackdex-rby",
-    "attackdex-gs"
+    "attackdex-gs",
+    "attackdex", # !?
+    "attackdex-dp"
 ]
 
 field_moves = [
@@ -16,6 +18,12 @@ field_moves = [
     
     # Gen 2
     ["cut", "fly", "surf", "strength", "flash", "whirlpool", "waterfall", "rock smash", "headbutt", "sweet scent", "milk drink", "teleport", "dig", "softboiled"],
+
+    # Gen 3
+    ["cut", "fly", "surf", "strength", "flash", "waterfall", "rock smash", "sweet scent", "milk drink", "teleport", "dig", "softboiled", "dive", "secret power"],
+    
+    # Gen 4
+    ["cut", "fly", "surf", "strength", "flash", "waterfall", "rock smash", "sweet scent", "milk drink", "teleport", "dig", "softboiled", "dive", "secret power", "whirlpool", "headbutt", "defog", "rock climb", "chatter"]
 ]
 
 def scrape_attackdex(gen):
@@ -55,7 +63,7 @@ def scrape_attackdex(gen):
         time.sleep(2)
 
 def main():
-    for g in range(1, 3):
+    for g in range(1, 4+1):
         print("Fetching gen {} field moves".format(g))
         scrape_attackdex(g)
         print("")

@@ -49,7 +49,7 @@ def get_hm_pokemon_for_gen(gen):
 if __name__ == '__main__':
     data = {}
 
-    for gen in range(1, 3):
+    for gen in range(1, 4+1):
         genPokemon = get_hm_pokemon_for_gen(gen)
 
         data["gen{}".format(gen)] = genPokemon
