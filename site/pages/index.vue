@@ -34,7 +34,7 @@
 import intersectionBy from 'lodash'
 
 import Pokemon from '~/components/Pokemon.vue'
-import json from '~/hm_data.json'
+import json from '~/static/hm_data.json'
 
 export default {
   components: {

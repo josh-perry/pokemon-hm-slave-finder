@@ -3,6 +3,5 @@ scraper/cache/*
 site/dist
 site/node_modules
 site/.nuxt
-site/hm_data.json
-site/all_pokemon.json
 site/static/img/*
+site/static/hm_data.json
