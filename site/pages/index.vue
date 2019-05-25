@@ -1,12 +1,18 @@
 <template>
   <section class="container">
-    <select v-model="generationSelection" @change="generationChanged($event)">
-      <option v-for="g in generations" v-bind:value="g.value">
-        {{g.text}}
-      </option>
-    </select>
+    <h1>Pokemon HM Slave Finder Thing</h1>
 
-    <div>
+    <div class="block">
+      <h2>Which generation are you playing?</h2>
+      <select v-model="generationSelection" @change="generationChanged($event)">
+        <option v-for="g in generations" v-bind:value="g.value">
+          {{g.text}}
+        </option>
+      </select>
+    </div>
+
+    <div v-if="generationSelection" class="block">
+      <h2>Which HMs do you need the Pokemon to know?</h2>
       <ul>
         <li v-for="hm in hms">
           <input type="checkbox" :id="hm.name" :value="hm.name" v-model="hmSelection" @change="hmChanged">
@@ -15,11 +21,12 @@
       </ul>
     </div>
 
-    <ul>
-      <li v-for="p in pokemon">
-        <pokemon :pokemon="p" :generation="generationSelection"/>
-      </li>
-    </ul>
+    <div v-if="hmSelection.length > 0" class="block">
+      <h2>These Pokemon can learn those HMs</h2>
+      <div class="flex-container">
+        <pokemon v-for="p in pokemon" :pokemon="p" :generation="generationSelection"/>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -39,10 +46,10 @@ export default {
       checkedNames: [],
       pokemon: [],
       generations: [
-        {text: "Gen 1 (RBY)", value: "gen1"},
-        {text: "Gen 2 (GSC)", value: "gen2"},
-        {text: "Gen 3", value: "gen3"},
-        {text: "Gen 4", value: "gen4"}
+        {text: "Red/Blue/Yellow", value: "gen1"},
+        {text: "Gold/Silver/Crystal", value: "gen2"},
+        {text: "Ruby/Sapphire/Emerald/FireRed/LeafGreen", value: "gen3"},
+        {text: "Diamond/Pearl/Platinum/SoulSilver/HeartGold", value: "gen4"}
       ],
       hms: [],
       generationSelection: null,
@@ -103,4 +110,26 @@ export default {
 </script>
 
 <style>
+.block {
+  margin-top: 5%;
+  padding: 5%;
+  border: 1px solid #5c5c5c;
+}
+
+select {
+  width: 100%;
+}
+
+ul {
+  list-style: none;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+h2 {
+  margin-bottom: 5%;
+}
 </style>
